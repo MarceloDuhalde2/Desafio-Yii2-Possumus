@@ -45,7 +45,31 @@ class UsuariosController extends \yii\rest\ActiveController
             $this->sendResponse("exito", $message);
         }
     }
-
+    // actualizar usuario por dni
+    public function actionActualizar() 
+    {
+        $request = Yii::$app->request;
+        $usuario_dni = $request->get('dni');
+        $usuario_filtrado = Usuario::findOne(['dni'=>$usuario_dni]);
+        if(empty($usuario_filtrado)){
+            $message = "Usuario no encontrado.";
+            $this->sendResponse("error", $message);
+        }else{
+            $datos = $request->getBodyParams();
+            $usuario_filtrado->nombre = $datos["nombre"];
+            $usuario_filtrado->apellido = $datos["apellido"];
+            $usuario_filtrado->edad = $datos["edad"];
+            $usuario_filtrado->email = $datos["email"];
+            $usuario_filtrado->dni = $datos["dni"];
+            if($usuario_filtrado->save()){
+                $message = "el usuario ha sido actualizado exitosamente.";
+                $this->sendResponse("exito", $message);
+            }else{
+                $message = "ocurrió un error al guardar, por favor verifique los campos ingresados.";
+                $this->sendResponse("error", $message);
+            }
+        }
+    }
     // funcion para enviar resultado
     private function sendResponse($type,$message) {
         if($type == "error"){
