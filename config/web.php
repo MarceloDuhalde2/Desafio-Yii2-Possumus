@@ -57,7 +57,7 @@ $config = [
                 'GET,HEAD usuarios/<dni>' => 'usuarios/listado-filtrado',
                 'DELETE usuarios/<dni>' => 'usuarios/eliminar',
                 'PUT,PATCH usuarios/<dni>' => 'usuarios/actualizar',
-                
+                'POST usuarios' => 'usuarios/insertar',
             ],
         ],
     ],

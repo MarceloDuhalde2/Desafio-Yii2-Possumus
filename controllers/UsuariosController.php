@@ -70,6 +70,30 @@ class UsuariosController extends \yii\rest\ActiveController
             }
         }
     }
+    // insertar usuario
+    public function actionInsertar() 
+    {
+        $request = Yii::$app->request;
+        $datos = $request->getBodyParams();
+        if($datos["edad"] < 18){
+            $message = "el usuario ingresado debe ser mayor de 18 años de edad.";
+            $this->sendResponse("error", $message);
+        }else{
+            $usuario = new Usuario();
+            $usuario->nombre = $datos["nombre"];
+            $usuario->apellido = $datos["apellido"];
+            $usuario->edad = $datos["edad"];
+            $usuario->email = $datos["email"];
+            $usuario->dni = $datos["dni"];
+            if($usuario->save()){
+                $message = "el usuario ha sido ingresado exitosamente.";
+                $this->sendResponse("exito", $message);
+            }else{
+                $message = "ocurrió un error al guardar, por favor verifique los campos ingresados.";
+                $this->sendResponse("error", $message);
+            }
+        }
+    }
     // funcion para enviar resultado
     private function sendResponse($type,$message) {
         if($type == "error"){
