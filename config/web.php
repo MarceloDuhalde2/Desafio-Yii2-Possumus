@@ -54,6 +54,7 @@ $config = [
             'enableStrictParsing' => true,
             'rules' => [
                 'GET,HEAD usuarios' => 'usuarios/listado',
+                'GET,HEAD usuarios/<dni>' => 'usuarios/listado-filtrado',
             ],
         ],
     ],
