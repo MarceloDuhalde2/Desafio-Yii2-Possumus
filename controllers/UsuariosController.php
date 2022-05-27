@@ -30,6 +30,21 @@ class UsuariosController extends \yii\rest\ActiveController
             $this->sendResponse("exito", $usuario_filtrado);
         }
     }
+    // eliminar usuario por dni
+    public function actionEliminar() 
+    {
+        $request = Yii::$app->request;
+        $usuario_dni = $request->get('dni');
+        $usuario_filtrado = Usuario::findOne(['dni'=>$usuario_dni]);
+        if(empty($usuario_filtrado)){
+            $message = "Usuario no encontrado.";
+            $this->sendResponse("error", $message);
+        }else{
+            $usuario_filtrado->delete();
+            $message = "el usuario ha sido eliminado exitosamente.";
+            $this->sendResponse("exito", $message);
+        }
+    }
 
     // funcion para enviar resultado
     private function sendResponse($type,$message) {

@@ -55,6 +55,7 @@ $config = [
             'rules' => [
                 'GET,HEAD usuarios' => 'usuarios/listado',
                 'GET,HEAD usuarios/<dni>' => 'usuarios/listado-filtrado',
+                'DELETE usuarios/<dni>' => 'usuarios/eliminar',
             ],
         ],
     ],
